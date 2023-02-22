@@ -13,23 +13,27 @@ import {
 import makeStyles from "@mui/styles/makeStyles";
 import { useHistory } from "react-router-dom";
 
-const useStyles = makeStyles({
-  btn: {
-    fontSize: 20,
-    background: "red",
-    "&:hover": {
-      background: "blue",
+const useStyles = makeStyles((theme) => {
+  return {
+    btn: {
+      fontSize: 20,
+      background: "red",
+      "&:hover": {
+        background: "blue",
+      },
     },
-  },
-  title: {
-    textDecoration: "underline",
-    marginBottom: 20,
-  },
-  fields: {
-    display: "block",
-    background: "secondary",
-    margin: 50,
-  },
+    title: {
+      textDecoration: "underline",
+      marginBottom: 20,
+    },
+    fields: {
+      display: "block",
+      background: "secondary",
+    },
+    form: {
+      lineHeight: 5,
+    },
+  };
 });
 
 export default function Create() {
@@ -64,7 +68,12 @@ export default function Create() {
 
   return (
     <Container>
-      <form noValidate autoComplete="off" onSubmit={handleSubmit}>
+      <form
+        className={classes.form}
+        noValidate
+        autoComplete="off"
+        onSubmit={handleSubmit}
+      >
         <TextField
           onChange={(e) => setTitle(e.target.value)}
           className={classes.fields}
@@ -78,7 +87,6 @@ export default function Create() {
           className={classes.fields}
           variant="outlined"
           label="Details"
-          color="secondary"
           fullWidth
           required
           multiline
@@ -93,15 +101,15 @@ export default function Create() {
             value={category}
             onChange={(e) => setCategory(e.target.value)}
           >
-            <FormControlLabel value="Money" control={<Radio />} lable="Money" />
-            <FormControlLabel value="car" control={<Radio />} lable="car" />
-            <FormControlLabel value="home" control={<Radio />} lable="home" />
-          </RadioGroup>
-        </FormControl>
+            <FormControlLabel value="Money" control={<Radio />} label="Money" />
+            <FormControlLabel value="Car" control={<Radio />} label="Car" />
 
-        <Button type="submit" color="secondary" variant="contained">
-          Submit me
-        </Button>
+            <FormControlLabel value="Home" control={<Radio />} label="Home" />
+          </RadioGroup>
+          <Button type="submit" color="secondary" variant="contained">
+            Submit me
+          </Button>
+        </FormControl>
       </form>
     </Container>
   );
