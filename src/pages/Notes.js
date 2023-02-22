@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Paper } from "@mui/material";
 
 import makeStyles from "@mui/styles/makeStyles";
 import { Container } from "@mui/system";
@@ -61,13 +60,6 @@ export default function Notes() {
           </div>
         ))}
       </Masonry>
-      {/* <Grid container spacing={3}>
-        {notes.map((note) => (
-          <Grid item key={note.id} lg={4} md={6} xs={12}>
-            <NoteCard note={note} handleDelete={handleDelete} />
-          </Grid>
-        ))}
-      </Grid> */}
     </Container>
   );
 }

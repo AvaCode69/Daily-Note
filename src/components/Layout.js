@@ -16,6 +16,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import { format } from "date-fns";
 
 const drawerWidth = 240;
+
 const useStyles = makeStyles((theme) => {
   return {
     page: {
@@ -23,14 +24,14 @@ const useStyles = makeStyles((theme) => {
       width: "100%",
       padding: theme.spacing(3),
     },
+    root: {
+      display: "flex",
+    },
     drawer: {
       width: drawerWidth,
     },
     drawerPaper: {
       width: drawerWidth,
-    },
-    root: {
-      display: "flex",
     },
     active: {
       background: "#f4f4f4",
@@ -38,13 +39,14 @@ const useStyles = makeStyles((theme) => {
     title: {
       padding: theme.spacing(2),
     },
-    appbar: {
+    appBar: {
       width: `calc(100% - ${drawerWidth}px)`,
+      marginLeft: drawerWidth,
     },
-    toolbar: theme.mixins.toolbar,
     date: {
       flexGrow: 1,
     },
+    toolbar: theme.mixins.toolbar,
     avatar: {
       marginLeft: theme.spacing(2),
     },
@@ -55,6 +57,7 @@ export default function Layout({ children }) {
   const classes = useStyles();
   const history = useHistory();
   const location = useLocation();
+
   const menuItems = [
     {
       text: "My Notes",
@@ -64,49 +67,58 @@ export default function Layout({ children }) {
     {
       text: "Create Note",
       icon: <AddCircleOutline color="secondary" />,
-      path: "/Create",
+      path: "/create",
     },
   ];
 
   return (
     <div className={classes.root}>
-      <AppBar color="primary" className={classes.appbar} elevation={0}>
+      {/* app bar */}
+      <AppBar
+        position="fixed"
+        elevation={0}
+        color="inherit"
+        sx={{ width: `calc(100% - ${drawerWidth}px)` }}
+      >
         <Toolbar>
-          Today is the{" "}
           <Typography className={classes.date}>
-            {format(new Date(), "do MMMM Y")}
+            Today is the {format(new Date(), "do MMMM Y")}
           </Typography>
           <Typography>Mario</Typography>
-          <Avatar src="/mario-av.png" className={classes.avatar} />
+          <Avatar className={classes.avatar} src="/mario-av.png" />
         </Toolbar>
       </AppBar>
 
+      {/* side drawer */}
       <Drawer
         className={classes.drawer}
         variant="permanent"
         classes={{ paper: classes.drawerPaper }}
+        anchor="left"
       >
-        {" "}
-        <Typography variant="h5" className={classes.title}>
-          Note App
-        </Typography>
+        <div>
+          <Typography variant="h5" className={classes.title}>
+            Daily Notes
+          </Typography>
+        </div>
+
+        {/* links/list section */}
         <List>
           {menuItems.map((item) => (
             <ListItem
               button
               key={item.text}
               onClick={() => history.push(item.path)}
-              className={
-                location.pathname === item.path ? classes.active : null
-              }
+              className={location.pathname == item.path ? classes.active : null}
             >
               <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText>{item.text}</ListItemText>
+              <ListItemText primary={item.text} />
             </ListItem>
           ))}
         </List>
       </Drawer>
 
+      {/* main content */}
       <div className={classes.page}>
         <div className={classes.toolbar}></div>
         {children}

@@ -6,14 +6,14 @@ import { purple } from "@mui/material/colors";
 import Layout from "./components/Layout";
 
 const theme = createTheme({
-  // palette: {
-  //   primary: {
-  //     main: "#fff",
-  //   },
-  //   secondary: purple,
-  // },
+  palette: {
+    primary: {
+      main: "#d500f9",
+    },
+    secondary: purple,
+  },
   typography: {
-    fontFamily: "Quickland",
+    fontFamily: "Quicksand",
     fontWeightLight: 400,
     fontWeightRegular: 500,
     fontWeightMedium: 600,

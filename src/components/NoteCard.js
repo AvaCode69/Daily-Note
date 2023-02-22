@@ -8,35 +8,30 @@ import {
 } from "@mui/material";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import { React } from "react";
-import makeStyles from "@mui/styles/makeStyles";
 import { yellow, green, pink, blue } from "@mui/material/colors";
 
-const useStyles = makeStyles({
-  avatar: {
-    backgroundColor: (note) => {
-      if (note.category == "work") {
-        return yellow[700];
-      }
-      if (note.category == "money") {
-        return green[500];
-      }
-      if (note.category == "todos") {
-        return pink[500];
-      }
-      return blue[500];
-    },
-  },
-});
+const avatarBgColor = (note) => {
+  if (note.category === "work") {
+    return yellow[700];
+  }
+  if (note.category === "money") {
+    return green[700];
+  }
+  if (note.category === "Car") {
+    return pink[500];
+  } else {
+    return blue[500];
+  }
+};
 
 export default function NoteCard({ note, handleDelete }) {
-  const classes = useStyles(note);
-
   return (
     <div>
       <Card elevation={1}>
         <CardHeader
           avatar={
-            <Avatar className={classes.avatar}>
+            <Avatar sx={{ bgcolor: avatarBgColor(note) }}>
+              {" "}
               {note.category[0].toUpperCase()}
             </Avatar>
           }

@@ -8,6 +8,7 @@ import {
   FormControlLabel,
   FormLabel,
   FormControl,
+  Typography,
 } from "@mui/material";
 
 import makeStyles from "@mui/styles/makeStyles";
@@ -15,6 +16,12 @@ import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => {
   return {
+    radio: {
+      "&$checked": {
+        color: "#ccc",
+      },
+    },
+    checked: {},
     btn: {
       fontSize: 20,
       background: "red",
@@ -29,6 +36,7 @@ const useStyles = makeStyles((theme) => {
     fields: {
       display: "block",
       background: "secondary",
+      margin: theme.spacing(5),
     },
     form: {
       lineHeight: 5,
@@ -44,7 +52,7 @@ export default function Create() {
   const [details, setDetails] = useState("");
   const [titleError, setTitleError] = useState(false);
   const [detailsError, setDetailsError] = useState(false);
-  const [category, setCategory] = useState("car");
+  const [category, setCategory] = useState("Car");
   const handleSubmit = (e) => {
     e.preventDefault();
     setDetailsError(false);
@@ -68,6 +76,14 @@ export default function Create() {
 
   return (
     <Container>
+      <Typography
+        variant="h6"
+        color="textSecondary"
+        component="h2"
+        gutterBottom
+      >
+        Create a New Note
+      </Typography>
       <form
         className={classes.form}
         noValidate
@@ -78,8 +94,10 @@ export default function Create() {
           onChange={(e) => setTitle(e.target.value)}
           className={classes.fields}
           variant="outlined"
-          label="Name family"
+          label="Note Title"
+          color="secondary"
           fullWidth
+          required
           error={titleError}
         />
         <TextField
@@ -92,11 +110,11 @@ export default function Create() {
           multiline
           rows={4}
           error={detailsError}
+          color="secondary"
         />
 
         <FormControl className={classes.fields}>
           <FormLabel>Note Category</FormLabel>
-
           <RadioGroup
             value={category}
             onChange={(e) => setCategory(e.target.value)}
